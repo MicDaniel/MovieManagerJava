@@ -8,6 +8,10 @@ tomcat
 # Default excludes
 #
 
+#Files
+D:\Facultate\An II\Sem I\Java-Proiecte\mysql-connector-java-8.0.18
+
+
 # Binaries
 *.7z
 *.dmg
