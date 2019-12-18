@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Movies>
+    <Movies id="9">
+        <Name>A winter story</Name>
+        <Category>Romance</Category>
+        <ReleaseDate>18-12-2019</ReleaseDate>
+        <rating>10.0</rating>
+        <IMDbRating>9.1</IMDbRating>
+        <Image_path>C:\Users\danie\Downloads\947097.jpg</Image_path>
+        <User_id>1</User_id>
+    </Movies>
+    <Movies id="10">
+        <Name>Avengers: Endgame</Name>
+        <Category>Action</Category>
+        <ReleaseDate>15-08-2019</ReleaseDate>
+        <rating>8.2</rating>
+        <IMDbRating>8.3</IMDbRating>
+        <Image_path>D:\Facultate\An II\Sem I\Java-Proiecte\images\AvengersEndGame.jfif</Image_path>
+        <User_id>1</User_id>
+    </Movies>
+    <Movies id="11">
+        <Name>The Shawshank Redemption</Name>
+        <Category>Drama</Category>
+        <ReleaseDate>22-09-1994</ReleaseDate>
+        <rating>9.5</rating>
+        <IMDbRating>9.3</IMDbRating>
+        <Image_path>D:\Facultate\An II\Sem I\Java-Proiecte\images\ShawshankRedemption.jfif</Image_path>
+        <User_id>1</User_id>
+    </Movies>
+    <Movies id="12">
+        <Name>Test1</Name>
+        <Category>Comedy</Category>
+        <ReleaseDate>Test1</ReleaseDate>
+        <rating>2.0</rating>
+        <IMDbRating>3.0</IMDbRating>
+        <Image_path>C:\Users\danie\Downloads\winter_lake_mountains_shore_118662_3840x2160.jpg</Image_path>
+        <User_id>1</User_id>
+    </Movies>
+</Movies>

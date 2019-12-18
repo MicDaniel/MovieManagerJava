@@ -23,10 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="mainPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="238" max="32767" attributes="0"/>
-          </Group>
+          <Component id="mainPanel" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -54,7 +51,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="loginTitle" pref="312" max="32767" attributes="0"/>
+                          <Component id="bannerLabel" pref="312" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
@@ -75,6 +72,11 @@
                                       <Component id="passwordField" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="registerLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -86,29 +88,31 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                  <Component id="loginTitle" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="bannerLabel" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="usernameIcon" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                      <Component id="usernameField" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="usernameIcon" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="usernameField" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="passwordIcon" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="passwordField" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="passwordIcon" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="passwordField" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="loginButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="116" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="registerLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="66" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="loginTitle">
+        <Component class="javax.swing.JLabel" name="bannerLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="36" style="1"/>
@@ -129,6 +133,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="PassIcon"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="passwordIconMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="usernameField">
           <Properties>
@@ -171,6 +178,19 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="registerLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="You don&apos;t have an account? Click here to create one!"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registerLabelMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registerLabelMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registerLabelMouseExited"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

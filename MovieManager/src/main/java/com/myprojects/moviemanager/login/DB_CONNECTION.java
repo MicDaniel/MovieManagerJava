@@ -17,12 +17,12 @@ import java.util.logging.Logger;
  */
 public class DB_CONNECTION {
     private static String servername = "localhost";
-    private static String dbname = "java";
+    private static String dbname = "javamoviedatabase";
     private static String username = "root";
     private static String password = "";//no pass
     private static Integer portnumber = 3306;
     
-    public static Connection getTheConnection() {
+    public static Connection getConnection() {
         
         Connection connection = null;
         MysqlDataSource datasource = new MysqlDataSource();

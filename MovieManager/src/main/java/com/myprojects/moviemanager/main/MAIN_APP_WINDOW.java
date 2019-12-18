@@ -5,17 +5,56 @@
  */
 package com.myprojects.moviemanager.main;
 
+import Models.Tabel;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.myprojects.moviemanager.shared.SharedFunctions;
+import com.myprojects.moviemanager.shared.XMLManipulation;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
- * @author danie
+ * @author Daniel Mic
  */
 public class MAIN_APP_WINDOW extends javax.swing.JFrame {
 
     /**
      * Creates new form MAIN_APP_WINDOW
      */
-    public MAIN_APP_WINDOW() {
+    
+    private int USER_ID;
+    
+    public MAIN_APP_WINDOW(){
         initComponents();
+    }
+    
+    public MAIN_APP_WINDOW(int id) {
+        this.USER_ID = id;
+        initComponents();
+        populateMovieTable();
+        
+      // logoIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("../images/logo.png")));
     }
 
     /**
@@ -27,21 +66,488 @@ public class MAIN_APP_WINDOW extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mainPanel = new javax.swing.JPanel();
+        menuPanel = new javax.swing.JPanel();
+        logoIcon = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        generateReportButton = new javax.swing.JButton();
+        safetyCopyButton = new javax.swing.JButton();
+        deleteMovieButton = new javax.swing.JButton();
+        addMovieButton = new javax.swing.JButton();
+        restoreButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
+        editMovieButton = new javax.swing.JButton();
+        categoryComboBox = new javax.swing.JComboBox<>();
+        mainSplitComponent = new javax.swing.JSplitPane();
+        rightPane = new javax.swing.JScrollPane();
+        movieTable = new javax.swing.JTable();
+        leftPane = new javax.swing.JPanel();
+        movieIcon = new javax.swing.JLabel();
+        detailsTitleLabel1 = new javax.swing.JLabel();
+        detailsTitleLabel2 = new javax.swing.JLabel();
+        detailsReleaseDateLabel1 = new javax.swing.JLabel();
+        detailsReleaseDateLabel2 = new javax.swing.JLabel();
+        detailsCategoryLabel1 = new javax.swing.JLabel();
+        detailsCategoryLabel2 = new javax.swing.JLabel();
+        detailsPersonalRatingLabel1 = new javax.swing.JLabel();
+        detailsPersonalRatingLabel2 = new javax.swing.JLabel();
+        detailsImdbRating1 = new javax.swing.JLabel();
+        detailsImdbRating2 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mainPanel.setForeground(new java.awt.Color(157, 157, 157));
+        mainPanel.setName(""); // NOI18N
+
+        menuPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        logoIcon.setIcon(new javax.swing.ImageIcon("D:\\Facultate\\An II\\Sem I\\Java-Proiecte\\images\\logo.png")); // NOI18N
+
+        jLabel1.setText("Movie DataBase");
+
+        generateReportButton.setText("Generate report");
+        generateReportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateReportButtonActionPerformed(evt);
+            }
+        });
+
+        safetyCopyButton.setText("Create a secure copy");
+        safetyCopyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                safetyCopyButtonActionPerformed(evt);
+            }
+        });
+
+        deleteMovieButton.setText("Delete movie");
+        deleteMovieButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMovieButtonActionPerformed(evt);
+            }
+        });
+
+        addMovieButton.setText("Add new movie");
+        addMovieButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addMovieButtonActionPerformed(evt);
+            }
+        });
+
+        restoreButton.setText("Restore ");
+        restoreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restoreButtonActionPerformed(evt);
+            }
+        });
+
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+
+        editMovieButton.setText("Edit movie");
+        editMovieButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editMovieButtonActionPerformed(evt);
+            }
+        });
+
+        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Comedy", "Sci-fi", "Horror", "Romance", "Action", "Thriller", "Drama", "Mystery", "Crime", "Animation", "Adventure", "Fantasy", "Comedy-Romance", "Action-Comedy", "Superhero", "Documentary" }));
+        categoryComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoryComboBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(categoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addComponent(logoIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                    .addComponent(deleteMovieButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(safetyCopyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(generateReportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(restoreButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(refreshButton))
+                    .addComponent(addMovieButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editMovieButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(logoIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(categoryComboBox, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(addMovieButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(editMovieButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(deleteMovieButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(generateReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(safetyCopyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(restoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(refreshButton)
+                .addContainerGap())
+        );
+
+        movieTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        movieTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                movieTableMouseClicked(evt);
+            }
+        });
+        rightPane.setViewportView(movieTable);
+
+        mainSplitComponent.setRightComponent(rightPane);
+
+        detailsTitleLabel1.setBackground(new java.awt.Color(255, 204, 255));
+        detailsTitleLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        detailsTitleLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        detailsTitleLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsTitleLabel1.setText("Title:");
+        detailsTitleLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        detailsTitleLabel1.setOpaque(true);
+
+        detailsTitleLabel2.setBackground(new java.awt.Color(255, 204, 204));
+        detailsTitleLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsTitleLabel2.setOpaque(true);
+
+        detailsReleaseDateLabel1.setBackground(new java.awt.Color(255, 204, 255));
+        detailsReleaseDateLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        detailsReleaseDateLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        detailsReleaseDateLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsReleaseDateLabel1.setText("Release Date:");
+        detailsReleaseDateLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        detailsReleaseDateLabel1.setOpaque(true);
+
+        detailsReleaseDateLabel2.setBackground(new java.awt.Color(255, 255, 204));
+        detailsReleaseDateLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsReleaseDateLabel2.setOpaque(true);
+
+        detailsCategoryLabel1.setBackground(new java.awt.Color(255, 204, 255));
+        detailsCategoryLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        detailsCategoryLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        detailsCategoryLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsCategoryLabel1.setText("Category:");
+        detailsCategoryLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        detailsCategoryLabel1.setOpaque(true);
+
+        detailsCategoryLabel2.setBackground(new java.awt.Color(255, 204, 204));
+        detailsCategoryLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsCategoryLabel2.setOpaque(true);
+
+        detailsPersonalRatingLabel1.setBackground(new java.awt.Color(255, 204, 255));
+        detailsPersonalRatingLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        detailsPersonalRatingLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        detailsPersonalRatingLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsPersonalRatingLabel1.setText("Personal Rating:");
+        detailsPersonalRatingLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        detailsPersonalRatingLabel1.setOpaque(true);
+
+        detailsPersonalRatingLabel2.setBackground(new java.awt.Color(255, 255, 204));
+        detailsPersonalRatingLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsPersonalRatingLabel2.setOpaque(true);
+
+        detailsImdbRating1.setBackground(new java.awt.Color(255, 204, 255));
+        detailsImdbRating1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        detailsImdbRating1.setForeground(new java.awt.Color(102, 102, 102));
+        detailsImdbRating1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsImdbRating1.setText("IMDb Rating:");
+        detailsImdbRating1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        detailsImdbRating1.setOpaque(true);
+
+        detailsImdbRating2.setBackground(new java.awt.Color(255, 255, 204));
+        detailsImdbRating2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        detailsImdbRating2.setOpaque(true);
+
+        javax.swing.GroupLayout leftPaneLayout = new javax.swing.GroupLayout(leftPane);
+        leftPane.setLayout(leftPaneLayout);
+        leftPaneLayout.setHorizontalGroup(
+            leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leftPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(detailsImdbRating1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsTitleLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsCategoryLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsPersonalRatingLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsReleaseDateLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailsCategoryLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsReleaseDateLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsPersonalRatingLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsImdbRating2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(detailsTitleLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(leftPaneLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(movieIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+        leftPaneLayout.setVerticalGroup(
+            leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leftPaneLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(movieIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailsTitleLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(detailsTitleLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailsCategoryLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(detailsCategoryLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailsReleaseDateLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(detailsReleaseDateLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailsPersonalRatingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(detailsPersonalRatingLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leftPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailsImdbRating2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(detailsImdbRating1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
+        );
+
+        mainSplitComponent.setLeftComponent(leftPane);
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mainSplitComponent, javax.swing.GroupLayout.DEFAULT_SIZE, 1049, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainSplitComponent)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+     public void populateMovieTable() {
+        MovieQuery movieQuery = new MovieQuery(USER_ID);
+        ArrayList<Movie> movieList;
+        JLabel placeHolderLabel = new JLabel();
+        
+                
+        mainSplitComponent.getLeftComponent().setVisible(false);
+        mainSplitComponent.setDividerSize(0);
+        
+        if("All".equals(String.valueOf(categoryComboBox.getSelectedItem()))){  
+            movieList = movieQuery.getMovieList();
+        }
+        else {
+            String category = String.valueOf(categoryComboBox.getSelectedItem());
+            movieList = movieQuery.getMovieListByCateg(category);
+        }
+           String[] colNames = {
+                "Id", "Title", "Category", "Release Date", "Rating", "Image"
+            };
+            Object[][] rows = new Object[movieList.size()][7];
+            SharedFunctions shared = new SharedFunctions();
+
+            for(int i = 0; i < movieList.size(); i++) {
+                rows[i][0] = movieList.get(i).getId();
+                rows[i][1] = movieList.get(i).getName();
+                rows[i][2] = movieList.get(i).getCategory();
+                rows[i][3] = movieList.get(i).getReleasedate();
+                rows[i][4] = movieList.get(i).getRating();
+                rows[i][5] = shared.resizePic(movieList.get(i).getImagePth(), null, 70, 40);
+
+                Tabel table = new Tabel(rows, colNames);
+                movieTable.setModel(table);
+                movieTable.setRowHeight(100);
+                movieTable.getColumnModel().getColumn(5).setPreferredWidth(150);
+            }
+            
+        if(movieList.isEmpty()){
+            movieTable.setVisible(false);
+            placeHolderLabel.setText("No movies in this category");
+            placeHolderLabel.setFont(new Font("Serif",Font.BOLD,28));
+            rightPane.add(placeHolderLabel);
+            placeHolderLabel.setVisible(true);
+            
+        }
+        else{
+            placeHolderLabel.setVisible(false);
+            movieTable.setVisible(true);
+        }
+    }
+     
+    public void refreshMovieTable() {
+        movieTable.setModel(new DefaultTableModel());
+        populateMovieTable();
+    }
+    
+    private void generateReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateReportButtonActionPerformed
+    
+            Document document = new Document();
+        try {
+            //He kept showing an error for try, catch
+                try {
+                    PdfWriter.getInstance(document, new FileOutputStream("MovieReport.pdf"));
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MAIN_APP_WINDOW.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                String category = String.valueOf(categoryComboBox.getSelectedItem());
+               
+                document.open();
+                com.itextpdf.text.Font font = FontFactory.getFont(FontFactory.TIMES, 16, BaseColor.BLUE);
+                Chunk chunk = new Chunk("My list of movies. Category: " + category);
+                document.add(chunk);
+                document.add(new Paragraph(50, "\u00a0"));
+                PdfPTable table = new PdfPTable(7);
+                table.setWidthPercentage(100);
+                addTableHeader(table);
+                addRows(table);
+                //addCustomRows(table);          
+                document.add(table);
+                document.close();
+               
+        } catch (DocumentException ex) {
+            Logger.getLogger(MAIN_APP_WINDOW.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }//GEN-LAST:event_generateReportButtonActionPerformed
+
+    private void safetyCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_safetyCopyButtonActionPerformed
+        XMLManipulation xmlgenerate = new XMLManipulation(USER_ID);
+        xmlgenerate.exportXML();
+    }//GEN-LAST:event_safetyCopyButtonActionPerformed
+
+    private void deleteMovieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMovieButtonActionPerformed
+        int index = movieTable.getSelectedRow();
+        int sqlIdx = (Integer)movieTable.getValueAt(index, 0);
+        if(index != 0){
+           MovieQuery movieQuery = new MovieQuery(USER_ID);
+           movieQuery.deleteMovie(sqlIdx);
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"No movie selected");
+        }
+    }//GEN-LAST:event_deleteMovieButtonActionPerformed
+
+    private void addMovieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMovieButtonActionPerformed
+        ADD_MOVIE_WINDOW addMovieForm = new ADD_MOVIE_WINDOW(USER_ID);
+        addMovieForm.setVisible(true);
+        addMovieForm.pack();
+    }//GEN-LAST:event_addMovieButtonActionPerformed
+
+    private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreButtonActionPerformed
+        JOptionPane.showMessageDialog(null, "Unfortunately, not implemented yet.");
+    }//GEN-LAST:event_restoreButtonActionPerformed
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        refreshMovieTable();
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void movieTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movieTableMouseClicked
+        int index = movieTable.getSelectedRow();
+        TableModel model = movieTable.getModel();
+        SharedFunctions shared = new SharedFunctions();
+        index = (Integer)model.getValueAt(index, 0);
+        MovieQuery movieQuery = new MovieQuery(USER_ID);
+        Movie movie = movieQuery.getMovie(index);
+        
+        leftPane.setAlignmentX(CENTER_ALIGNMENT);
+                
+        movieIcon.setIcon(shared.resizePic(movie.getImagePth(), null, movieIcon.getWidth(), movieIcon.getHeight()));
+        detailsTitleLabel2.setText(movie.getName());
+        detailsCategoryLabel2.setText(movie.getCategory());
+        detailsReleaseDateLabel2.setText(movie.getReleasedate());
+        detailsPersonalRatingLabel2.setText(String.valueOf(movie.getRating()));
+        detailsImdbRating2.setText(String.valueOf(movie.getImdbscore()));
+       
+        
+        mainSplitComponent.getLeftComponent().setVisible(true);
+        mainSplitComponent.setDividerSize(5);
+        mainSplitComponent.setDividerLocation(mainSplitComponent.getWidth() / 2);
+    }//GEN-LAST:event_movieTableMouseClicked
+
+    private void editMovieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMovieButtonActionPerformed
+       int index = movieTable.getSelectedRow();
+       int sqlIdx = (Integer)movieTable.getValueAt(index, 0);
+       System.out.println(index);
+       if(index >= 0){
+          String name = String.valueOf(movieTable.getValueAt(index, 1));
+          String category = String.valueOf(movieTable.getValueAt(index, 2));
+          String releaseDate = String.valueOf(movieTable.getValueAt(index, 3)); 
+          String rating = String.valueOf(movieTable.getValueAt(index, 4));
+          
+          EDIT_MOVIE_WINDOW editMovieForm = new EDIT_MOVIE_WINDOW(sqlIdx,name, category, releaseDate,rating,USER_ID);
+          editMovieForm.setVisible(true);
+          editMovieForm.pack();
+       }
+    }//GEN-LAST:event_editMovieButtonActionPerformed
+
+    private void categoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboBoxActionPerformed
+          populateMovieTable();
+    }//GEN-LAST:event_categoryComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +585,83 @@ public class MAIN_APP_WINDOW extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addMovieButton;
+    private javax.swing.JComboBox<String> categoryComboBox;
+    private javax.swing.JButton deleteMovieButton;
+    private javax.swing.JLabel detailsCategoryLabel1;
+    private javax.swing.JLabel detailsCategoryLabel2;
+    private javax.swing.JLabel detailsImdbRating1;
+    private javax.swing.JLabel detailsImdbRating2;
+    private javax.swing.JLabel detailsPersonalRatingLabel1;
+    private javax.swing.JLabel detailsPersonalRatingLabel2;
+    private javax.swing.JLabel detailsReleaseDateLabel1;
+    private javax.swing.JLabel detailsReleaseDateLabel2;
+    private javax.swing.JLabel detailsTitleLabel1;
+    private javax.swing.JLabel detailsTitleLabel2;
+    private javax.swing.JButton editMovieButton;
+    private javax.swing.JButton generateReportButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel leftPane;
+    private javax.swing.JLabel logoIcon;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JSplitPane mainSplitComponent;
+    private javax.swing.JPanel menuPanel;
+    private javax.swing.JLabel movieIcon;
+    private javax.swing.JTable movieTable;
+    private javax.swing.JButton refreshButton;
+    private javax.swing.JButton restoreButton;
+    private javax.swing.JScrollPane rightPane;
+    private javax.swing.JButton safetyCopyButton;
     // End of variables declaration//GEN-END:variables
+
+    private void addTableHeader(PdfPTable table) {
+          Stream.of("ID", "Title", "Category", "Release Date", "Rating", "IMDb Rating", "Image")
+        .forEach(columnTitle -> {
+        PdfPCell header = new PdfPCell();
+        header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        header.setBorderWidth(1);
+        header.setPhrase(new Phrase(columnTitle));
+        table.addCell(header);
+    });
+    }
+
+    private void addRows(PdfPTable table) {
+         MovieQuery movieQuery = new MovieQuery(USER_ID);
+        ArrayList<Movie> movieList;
+        SharedFunctions shared = new SharedFunctions();
+        
+         if("All".equals(String.valueOf(categoryComboBox.getSelectedItem()))){  
+            movieList = movieQuery.getMovieList();
+        }
+        else {
+            String category = String.valueOf(categoryComboBox.getSelectedItem());
+            movieList = movieQuery.getMovieListByCateg(category);
+        }
+   
+        for(int i = 0; i < movieList.size(); i++){
+            
+            int id = movieList.get(i).getId();
+            String name = movieList.get(i).getName();
+            String category = movieList.get(i).getCategory();
+            String releaseDate = movieList.get(i).getReleasedate();
+            float rating = movieList.get(i).getRating();
+            float imdbRating = movieList.get(i).getImdbscore();
+            ImageIcon image = shared.resizePic(movieList.get(i).getImagePth(), null, 70, 40);
+            
+            table.addCell(String.valueOf(id));
+            table.addCell(name);
+            table.addCell(category);
+            table.addCell(releaseDate);
+            table.addCell(String.valueOf(rating));
+            table.addCell(String.valueOf(imdbRating));
+            Image img = image.getImage();
+            table.addCell("img");
+            
+            
+         }
+    }
+
+    private void addCustomRows(PdfPTable table) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
